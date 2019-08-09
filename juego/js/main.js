@@ -12,8 +12,9 @@ class Game {
   }
 
   initialize() {
+    this.chooseColor = this.chooseColor.bind(this)
     btnStart.classList.add('hide')
-    this.nivel = 1
+    this.level = 1
     this.colors = {
       skyblue,
       purple,
@@ -28,6 +29,7 @@ class Game {
 
   nextLevel() {
     this.lightSequence()
+    this.addClickEvents()
   }
 
   transformNumberToColor(n) {
@@ -44,7 +46,7 @@ class Game {
   }
 
   lightSequence() {
-    for (let i = 0; i < this.nivel; i++) {
+    for (let i = 0; i < this.level; i++) {
       const color = this.transformNumberToColor(this.sequence[i])
       setTimeout(() => this.lightColor(color), 1000 * i)
     }
@@ -57,6 +59,20 @@ class Game {
 
   turnOffColor(color) {
     this.colors[color].classList.remove('light')
+  }
+
+  addClickEvents() {
+    // El bind permite atar el this al juego
+    // this.colors.skyblue.addEventListener('click', this.chooseColor.bind(this))
+
+    this.colors.skyblue.addEventListener('click', this.chooseColor)
+    this.colors.purple.addEventListener('click', this.chooseColor)
+    this.colors.orange.addEventListener('click', this.chooseColor)
+    this.colors.green.addEventListener('click', this.chooseColor)
+  }
+
+  chooseColor(ev) {
+    console.log(this)
   }
 }
 
